@@ -1,0 +1,23 @@
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  color: white;
+  text-align: center;
+}
+
+body {
+  margin-top: 4em;
+}
+
+button {
+  height: 40px;
+  width: 200px;
+  left: 50%;
+  top: 50%;
+  margin-top: -15px;
+  margin-left: -100px;
+  position: absolute;
+}
