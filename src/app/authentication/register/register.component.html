@@ -1,18 +1,21 @@
 <mat-card>
-  <form>
+  <form (submit)="onRegister(registerForm)" #registerForm="ngForm">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
-      <input matInput>
+      <input matInput name="name" ngModel #nameInput="ngModel" required>
+      <mat-error *ngIf="nameInput.invalid">Please enter your name</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
       <mat-label>Email</mat-label>
-      <input matInput type="email">
+      <input matInput name="email" ngModel type="email" #emailInput="ngModel" required email>
+      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
     </mat-form-field>
     <br>
     <mat-form-field appearance="fill">
       <mat-label>Password</mat-label>
-      <input matInput type="password">
+      <input type="password" name="password" ngModel matInput #passwordInput="ngModel" required>
+      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
     <br>
     <button mat-raised-button color="primary" type="submit">Register</button>

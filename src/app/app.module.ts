@@ -1,8 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
+// Routing and Components
 import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from "./authentication/auth.service";
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -31,7 +35,9 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatInputModule,
@@ -39,7 +45,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
