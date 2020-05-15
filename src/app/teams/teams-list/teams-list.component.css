@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+.info-text {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 5px #000000;
+}
+
+p {
+  color: black;
+}
+
+mat-expansion-panel {
+  width: 80%;
+  margin: 1rem auto;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+h3 {
+  color: white;
+}

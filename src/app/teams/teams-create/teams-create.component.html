@@ -1,0 +1,34 @@
+<h2>Create team</h2>
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <form (submit)="onSaveTeams(teamForm)" #teamForm="ngForm" *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="name"
+        [ngModel]="team?.name"
+        required
+        minlength="3"
+        placeholder="Team Name"
+        #name="ngModel">
+        <mat-error *ngIf="name.invalid">Please enter the team name</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        name="description"
+        [ngModel]="team?.description"
+        required
+        placeholder="Team Description"
+        #description="ngModel"></textarea>
+        <mat-error *ngIf="description.invalid">Please enter the team description</mat-error>
+
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit">Save Team</button>
+  </form>
+</mat-card>

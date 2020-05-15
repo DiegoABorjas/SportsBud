@@ -1,1 +1,17 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
 
+mat-card {
+  width: 40%;
+  margin: 1rem auto;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  width: 100%;
+}

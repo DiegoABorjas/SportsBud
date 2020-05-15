@@ -1,4 +1,6 @@
 <mat-card>
+  <h2>Create an account</h2>
+  <mat-spinner *ngIf="isLoading" ></mat-spinner>
   <form (submit)="onRegister(registerForm)" #registerForm="ngForm">
     <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
@@ -18,6 +20,6 @@
       <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
     <br>
-    <button mat-raised-button color="primary" type="submit">Register</button>
+    <button mat-raised-button color="primary" type="submit" *ngIf="!isLoading">Register</button>
   </form>
 </mat-card>

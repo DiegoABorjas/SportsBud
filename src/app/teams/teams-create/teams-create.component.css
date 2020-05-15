@@ -1,0 +1,24 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-card {
+  width: 80%;
+  margin: 1rem auto;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 5px #000000;
+}
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
