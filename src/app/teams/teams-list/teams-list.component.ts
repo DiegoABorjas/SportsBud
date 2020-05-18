@@ -24,19 +24,22 @@ export class TeamsListComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isLoading = true;
-    this.teamsService.getTeams();
-    this.userId = this.authService.getUserId();
-    this.teamsSub = this.teamsService.getTeamsUpdateListener()
-    .subscribe((teams: Teams[]) => {
-      this.isLoading = false;
-      this.teams = teams;
-    });
-  this.userIsAuthenticated = this.authService.getIsAuth();
-  this.authStatusSub = this.authService
-  .getAuthStatusListener()
-  .subscribe(isAuthenticated => {
-      this.userIsAuthenticated = isAuthenticated;
+    this.teamsService.getPosition().then(pos=> {
+      console.log(`Positon: ${pos.lng} ${pos.lat}`);
+      this.teamsService.getTeams(pos.lng, pos.lat);
       this.userId = this.authService.getUserId();
+      this.teamsSub = this.teamsService.getTeamsUpdateListener()
+      .subscribe((teams: Teams[]) => {
+        this.isLoading = false;
+        this.teams = teams;
+      });
+      this.userIsAuthenticated = this.authService.getIsAuth();
+      this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
     });
   }
 

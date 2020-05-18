@@ -23,7 +23,22 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
 
   constructor(public teamsService: TeamsService, public route: ActivatedRoute, private authService: AuthService) {}
 
+  latitude: Number = 0
+  longitude: Number = 0
+  geometry: any
+
   ngOnInit() {
+    this.teamsService.getPosition().then(pos=>
+      {
+         console.log(`Position: ${pos.lng} ${pos.lat}`);
+         this.latitude = pos.lat
+         this.longitude = pos.lng
+         this.geometry = {
+           type: "Point",
+           coords: [pos.lng, pos.lat],
+           index: "2dsphere"
+         }
+      });
     this.authStatusSub = this.authService.getAuthStatusListener()
     .subscribe(authStatus => {
       this.isLoading = false;
@@ -40,6 +55,11 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
             id: teamData._id,
             name: teamData.name,
             description: teamData.description,
+            sport: teamData.sport,
+            location: teamData.location,
+            latitude: teamData.latitude,
+            longitude: teamData.longitude,
+            geometry: teamData.geometry,
             creator: teamData.creator
           };
         });
@@ -56,12 +76,18 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
     }
     this.isLoading = true;
     if (this.mode === 'create') {
-      this.teamsService.addTeams(form.value.name, form.value.description);
+      this.teamsService.addTeams(form.value.name, form.value.description, form.value.sport,
+        form.value.location, this.latitude, this.longitude, this.geometry);
     } else {
       this.teamsService.updateTeams(
         this.teamId,
         form.value.name,
-        form.value.description
+        form.value.description,
+        form.value.sport,
+        form.value.location,
+        this.latitude,
+        this.longitude,
+        this.geometry
       );
     }
     form.resetForm();

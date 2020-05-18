@@ -1,5 +1,5 @@
 import { Teams } from "./teams.model";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Subject } from "rxjs";
 import { map } from "rxjs/Operators";
 import { Injectable } from '@angular/core';
@@ -12,16 +12,32 @@ export class TeamsService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getTeams() {
+  getPosition(): Promise<any>
+  {
+    return new Promise((resolve, reject) => {
+
+      navigator.geolocation.getCurrentPosition(resp => {
+          resolve({lng: resp.coords.longitude, lat: (resp.coords.latitude)});
+        },
+        err => {
+          reject(err);
+        });
+    });
+  }
+
+  getTeams(longitude, latitude) {
+    const opts = { params: new HttpParams({fromString: `lng=${longitude}&lat=${latitude}`}) };
     this.http.get<{message: string, teams: any}>(
-      'http://localhost:3000/api/teams'
+      'http://localhost:3000/api/teams', opts
     )
     .pipe(map((teamsData) => {
       return teamsData.teams.map(teams => {
         return {
           name: teams.name,
           description: teams.description,
+          sport: teams.sport,
           id: teams._id,
+          location: teams.location,
           creator: teams.creator
         };
       });
@@ -37,12 +53,15 @@ export class TeamsService {
   }
 
   getTeam(id: string) {
-    return this.http.get<{ _id: string, name: string, description: string, creator:  string }>(
+    return this.http.get<{ _id: string, name: string, description: string, sport: string, location: string,
+      latitude: Number, longitude: Number, geometry: any, creator:  string }>(
       "http://localhost:3000/api/teams/" + id);
   }
 
-  addTeams(name: string, description: string) {
-    const teams: Teams = { id: null, name: name, description: description, creator: null };
+  addTeams(name: string, description: string, sport: string, location: string, latitude: Number,
+    longitude: Number, geometry: any) {
+    const teams: Teams = { id: null, name: name, description: description, sport: sport,
+      location: location, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
     this.http
     .post<{message: string, teamsId: string }>(
       'http://localhost:3000/api/teams',
@@ -57,8 +76,10 @@ export class TeamsService {
     });
   }
 
-  updateTeams(id: string, name: string, description: string) {
-    const team: Teams = { id: id, name: name, description: description, creator: null };
+  updateTeams(id: string, name: string, description: string, sport: string, location: string,
+    latitude: Number, longitude: Number, geometry: any) {
+    const team: Teams = { id: id, name: name, description: description, sport: sport,
+      location: location, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
     this.http
     .put("http://localhost:3000/api/teams/" + id, team)
     .subscribe(response => {

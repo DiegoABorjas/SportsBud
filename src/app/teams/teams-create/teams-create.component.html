@@ -21,10 +21,32 @@
         name="description"
         [ngModel]="team?.description"
         required
-        placeholder="Team Description"
+        placeholder="Please describe your team (competitive, recreational, coed, etc)"
         #description="ngModel"></textarea>
         <mat-error *ngIf="description.invalid">Please enter the team description</mat-error>
-
+    </mat-form-field>
+    <mat-form-field>
+      <textarea
+        matInput
+        rows="4"
+        name="sport"
+        [ngModel]="team?.sport"
+        required
+        placeholder="What sport or sports this team will play?"
+        #sport="ngModel"></textarea>
+        <mat-error *ngIf="description.invalid">Please enter the sports this team plays</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="location"
+        ngModel
+        required
+        minlength="3"
+        placeholder="Location (State, City, ZIP Code?)"
+        #title="ngModel">
+        <mat-error *ngIf="title.invalid">Please enter the Location</mat-error>
     </mat-form-field>
     <button
       mat-raised-button

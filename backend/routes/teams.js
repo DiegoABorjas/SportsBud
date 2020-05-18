@@ -10,6 +10,15 @@ router.post("", checkAuth, (req, res, next) => {
   const teams = new Teams({
     name: req.body.name,
     description: req.body.description,
+    sport: req.body.sport,
+    location : req.body.location,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
+    geometry: {
+      type: 'Point',
+      coordinates: [req.body.longitude, req.body.latitude],
+      index: '2dsphere'
+    },
     creator: req.userData.userId
   });
   teams.save().then(createdTeams => {
@@ -34,6 +43,7 @@ router.put("/:id", checkAuth, (req, res, next) => {
     _id: req.body.id,
     name: req.body.name,
     description: req.body.description,
+    sport: req.body.sport,
     creator: req.userData.userId
   })
   Teams.updateOne({_id: req.params.id, creator: req.userData.userId }, team).then(result => {
@@ -50,9 +60,21 @@ router.put("/:id", checkAuth, (req, res, next) => {
   });
 });
 
-// Getting all teams
+// Getting all teams around user's location
 router.get('', (req, res, next) => {
-  Teams.find().then(documents => {
+  Teams.find({
+    geometry: {
+       $nearSphere: {
+          $geometry: {
+             type : "Point",
+             coordinates : [ parseFloat(req.query.lng), parseFloat(req.query.lat) ]
+          },
+          // $minDistance: 1000, if wanted in the future.
+          // Max Distance currently set to 48280.3 metes which is 30 miles.
+          $maxDistance: 48280.3
+       }
+    }
+  }).then(documents => {
     res.status(200).json({
       message: 'Teams fetched successfully!',
       teams: documents
