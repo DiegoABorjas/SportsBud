@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 const teamsSchema = mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  sport: { type: String },
-  location : { type: String },
+  sport: { type: String, required: true },
+  location: { type: String, required: true },
+  contact: { type: String, required: true },
   latitude: { type: Number },
   longitude: { type: Number },
   geometry: {

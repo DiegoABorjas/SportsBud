@@ -29,3 +29,9 @@ mat-spinner {
 h3 {
   color: white;
 }
+
+mat-card {
+  width: 15%;
+  margin: 1rem auto;
+}
+

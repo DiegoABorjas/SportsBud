@@ -1,119 +1,23 @@
 const express = require('express');
 
-const Teams = require('../models/teams');
+const TeamsController = require('../Controllers/teams')
+
 const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
 // Creating a new Team
-router.post("", checkAuth, (req, res, next) => {
-  const teams = new Teams({
-    name: req.body.name,
-    description: req.body.description,
-    sport: req.body.sport,
-    location : req.body.location,
-    latitude: req.body.latitude,
-    longitude: req.body.longitude,
-    geometry: {
-      type: 'Point',
-      coordinates: [req.body.longitude, req.body.latitude],
-      index: '2dsphere'
-    },
-    creator: req.userData.userId
-  });
-  teams.save().then(createdTeams => {
-    res.status(201).json({
-      message: 'Team added successfully',
-      teams: {
-        ...createdTeams,
-        id: createdTeams._id
-      }
-    });
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: "Creating a team failed!"
-    })
-  });
-});
+router.post("", checkAuth, TeamsController.createTeams);
 
 // Updating a team
-router.put("/:id", checkAuth, (req, res, next) => {
-  const team = new Teams({
-    _id: req.body.id,
-    name: req.body.name,
-    description: req.body.description,
-    sport: req.body.sport,
-    creator: req.userData.userId
-  })
-  Teams.updateOne({_id: req.params.id, creator: req.userData.userId }, team).then(result => {
-    if (result.nModified > 0) {
-      res.status(200).json({message: 'Update successful!'});
-    } else {
-      res.status(401).json({message: 'Not authorized!'});
-    }
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: "Could not update team!"
-    });
-  });
-});
+router.put("/:id", checkAuth, TeamsController.updateTeam);
 
 // Getting all teams around user's location
-router.get('', (req, res, next) => {
-  Teams.find({
-    geometry: {
-       $nearSphere: {
-          $geometry: {
-             type : "Point",
-             coordinates : [ parseFloat(req.query.lng), parseFloat(req.query.lat) ]
-          },
-          // $minDistance: 1000, if wanted in the future.
-          // Max Distance currently set to 48280.3 metes which is 30 miles.
-          $maxDistance: 48280.3
-       }
-    }
-  }).then(documents => {
-    res.status(200).json({
-      message: 'Teams fetched successfully!',
-      teams: documents
-    });
-  })
-  .catch(error => {
-    res.status(500).json({
-      message: "Fetching teams failed!"
-    });
-  });
-});
+router.get('', TeamsController.getTeams);
 
 // Getting a single Team
-router.get("/:id", (req, res, next) => {
-  Teams.findById(req.params.id).then(team => {
-    if (team) {
-      res.status(200).json(team);
-    } else {
-      return status(404).json({message: 'Team not found!'});
-    }
-  }).catch(error => {
-    res.status(500).json({
-      message: "Fetching team failed!"
-    });
-  });
-});
+router.get("/:id", TeamsController.getTeam );
  // Deleting teams
-router.delete("/:id", checkAuth, (req, res, next) => {
-  Teams.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
-    if (result.n > 0) {
-      res.status(200).json({message: 'Team deleted!'});
-    } else {
-      res.status(401).json({message: 'Not authorized!'});
-    }
-  }).catch(error => {
-    res.status(500).json({
-      message: "Fetching teams failed!"
-    });
-  });
-});
+router.delete("/:id", checkAuth, TeamsController.deleteTeam);
 
 module.exports = router;

@@ -4,6 +4,7 @@ export interface Teams {
   description: string;
   sport: string
   location: string;
+  contact: string;
   latitude: Number;
   longitude: Number;
   geometry: {

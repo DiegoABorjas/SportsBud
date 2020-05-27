@@ -25,8 +25,8 @@ export class TeamsService {
     });
   }
 
-  getTeams(longitude, latitude) {
-    const opts = { params: new HttpParams({fromString: `lng=${longitude}&lat=${latitude}`}) };
+  getTeams(longitude, latitude, miles) {
+    const opts = { params: new HttpParams({fromString: `lng=${longitude}&lat=${latitude}&mil=${miles}`}) };
     this.http.get<{message: string, teams: any}>(
       'http://localhost:3000/api/teams', opts
     )
@@ -38,6 +38,7 @@ export class TeamsService {
           sport: teams.sport,
           id: teams._id,
           location: teams.location,
+          contact: teams.contact,
           creator: teams.creator
         };
       });
@@ -54,14 +55,14 @@ export class TeamsService {
 
   getTeam(id: string) {
     return this.http.get<{ _id: string, name: string, description: string, sport: string, location: string,
-      latitude: Number, longitude: Number, geometry: any, creator:  string }>(
+      contact: string, latitude: Number, longitude: Number, geometry: any, creator:  string }>(
       "http://localhost:3000/api/teams/" + id);
   }
 
-  addTeams(name: string, description: string, sport: string, location: string, latitude: Number,
-    longitude: Number, geometry: any) {
-    const teams: Teams = { id: null, name: name, description: description, sport: sport,
-      location: location, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
+  addTeams(name: string, description: string, sport: string, location: string, contact: string,
+    latitude: Number, longitude: Number, geometry: any) {
+    const teams: Teams = { id: null, name: name, description: description, sport: sport, location: location,
+    contact: contact, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
     this.http
     .post<{message: string, teamsId: string }>(
       'http://localhost:3000/api/teams',
@@ -77,9 +78,9 @@ export class TeamsService {
   }
 
   updateTeams(id: string, name: string, description: string, sport: string, location: string,
-    latitude: Number, longitude: Number, geometry: any) {
-    const team: Teams = { id: id, name: name, description: description, sport: sport,
-      location: location, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
+    contact: string, latitude: Number, longitude: Number, geometry: any) {
+    const team: Teams = { id: id, name: name, description: description, sport: sport, location: location,
+    contact: contact, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
     this.http
     .put("http://localhost:3000/api/teams/" + id, team)
     .subscribe(response => {

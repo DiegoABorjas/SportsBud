@@ -1,4 +1,16 @@
 <h2>List of teams available around your location</h2>
+<mat-card>
+  <mat-form-field>
+    <mat-label>Select the max Miles</mat-label>
+    <mat-select [(value)]="miles" (selectionChange)="ngOnInit()">
+      <mat-option value="60">60</mat-option>
+      <mat-option value="50">50</mat-option>
+      <mat-option value="40">40</mat-option>
+      <mat-option value="30">30</mat-option>
+      <mat-option value="20">20</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 <mat-accordion multi="true" *ngIf="teams.length > 0 && !isLoading" >
   <mat-expansion-panel *ngFor="let team of teams">
@@ -13,6 +25,7 @@
     <p> <strong>Description: </strong> {{ team.description }} </p>
     <p> <strong>Sport: </strong> {{ team.sport }} </p>
     <p> <strong>Location: </strong> {{ team.location }}</p>
+    <p> <strong>Contact info: </strong> {{ team.contact }}</p>
     <mat-action-row *ngIf="userIsAuthenticated && userId == team.creator">
       <a mat-button color="primary" [routerLink]="['/edit', team.id]">EDIT</a>
       <button mat-button color="warn" (click)="onDelete(team.id)">DELETE</button>

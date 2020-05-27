@@ -57,6 +57,7 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
             description: teamData.description,
             sport: teamData.sport,
             location: teamData.location,
+            contact: teamData.contact,
             latitude: teamData.latitude,
             longitude: teamData.longitude,
             geometry: teamData.geometry,
@@ -77,7 +78,7 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (this.mode === 'create') {
       this.teamsService.addTeams(form.value.name, form.value.description, form.value.sport,
-        form.value.location, this.latitude, this.longitude, this.geometry);
+        form.value.location, form.value.contact, this.latitude, this.longitude, this.geometry);
     } else {
       this.teamsService.updateTeams(
         this.teamId,
@@ -85,6 +86,7 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
         form.value.description,
         form.value.sport,
         form.value.location,
+        form.value.contact,
         this.latitude,
         this.longitude,
         this.geometry

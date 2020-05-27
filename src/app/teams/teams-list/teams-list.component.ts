@@ -19,6 +19,7 @@ export class TeamsListComponent implements OnInit, OnDestroy {
   userId: string;
   private teamsSub: Subscription;
   private authStatusSub: Subscription;
+  miles = "30"
 
   constructor(public teamsService: TeamsService, private authService: AuthService) {}
 
@@ -26,7 +27,7 @@ export class TeamsListComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.teamsService.getPosition().then(pos=> {
       console.log(`Positon: ${pos.lng} ${pos.lat}`);
-      this.teamsService.getTeams(pos.lng, pos.lat);
+      this.teamsService.getTeams(pos.lng, pos.lat, this.miles);
       this.userId = this.authService.getUserId();
       this.teamsSub = this.teamsService.getTeamsUpdateListener()
       .subscribe((teams: Teams[]) => {

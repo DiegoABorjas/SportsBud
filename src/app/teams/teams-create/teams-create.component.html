@@ -26,14 +26,14 @@
         <mat-error *ngIf="description.invalid">Please enter the team description</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <textarea
+      <input
         matInput
-        rows="4"
+        type="text"
         name="sport"
         [ngModel]="team?.sport"
         required
         placeholder="What sport or sports this team will play?"
-        #sport="ngModel"></textarea>
+        #sport="ngModel">
         <mat-error *ngIf="description.invalid">Please enter the sports this team plays</mat-error>
     </mat-form-field>
     <mat-form-field>
@@ -41,12 +41,22 @@
         matInput
         type="text"
         name="location"
-        ngModel
+        [ngModel]="team?.location"
         required
-        minlength="3"
         placeholder="Location (State, City, ZIP Code?)"
-        #title="ngModel">
-        <mat-error *ngIf="title.invalid">Please enter the Location</mat-error>
+        #location="ngModel">
+        <mat-error *ngIf="location.invalid">Please enter the Location</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="text"
+        name="contact"
+        [ngModel]="team?.contact"
+        required
+        placeholder="Contact information (Please enter the best way to contact you)"
+        #contact="ngModel">
+        <mat-error *ngIf="contact.invalid">Please enter your preferred method of contact.</mat-error>
     </mat-form-field>
     <button
       mat-raised-button
