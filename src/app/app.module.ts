@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-import { AgmCoreModule } from "@agm/core";
+// import { AgmCoreModule } from "@agm/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 
 // Routing and Components
@@ -57,10 +57,10 @@ import { ErrorComponent } from './Error/error.component';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDul4i8VkQuHSkdf33PthJTv4kXsWBfSds',
-      libraries: ['places']
-    })
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'GOOGLE API KEY GOES HERE',
+    //   libraries: ['places']
+    // })
   ],
   providers: [AuthService, TeamsService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
