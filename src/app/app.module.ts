@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
-// import { AgmCoreModule } from "@agm/core";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+// import { AgmCoreModule } from "@agm/core";
 
 // Routing and Components
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +18,7 @@ import { TeamsListComponent } from './teams/teams-list/teams-list.component';
 import { TeamsService } from './teams/teams.service';
 import { AuthInterceptor } from './authentication/auth-interceptor';
 import { ErrorInterceptor } from "./error-interceptor";
+import { ErrorComponent } from './Error/error.component';
 
 //Angular Material
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,7 +30,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from "@angular/material/expansion";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDialogModule } from "@angular/material/dialog";
-import { ErrorComponent } from './Error/error.component';
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+
+
 
 @NgModule({
   declarations: [
@@ -57,6 +61,8 @@ import { ErrorComponent } from './Error/error.component';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
     // AgmCoreModule.forRoot({
     //   apiKey: 'GOOGLE API KEY GOES HERE',
     //   libraries: ['places']

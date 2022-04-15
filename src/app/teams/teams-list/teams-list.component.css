@@ -17,12 +17,12 @@ p {
   color: black;
 }
 
-mat-expansion-panel {
+.mat-expansion-panel {
   width: 80%;
   margin: 1rem auto;
 }
 
-mat-spinner {
+.mat-spinner {
   margin: auto;
 }
 
@@ -30,8 +30,12 @@ h3 {
   color: white;
 }
 
-mat-card {
+.mat-card {
   width: 15%;
   margin: 1rem auto;
+}
+
+.mat-select {
+  width: 20%;
 }
 

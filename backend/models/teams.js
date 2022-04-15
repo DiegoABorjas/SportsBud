@@ -19,6 +19,11 @@ const teamsSchema = mongoose.Schema({
       index: '2dsphere'
     }
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+    required: true
+},
   creator: { type: mongoose.Schema.Types.ObjectId, ref: "Users", required: true }
 });
 

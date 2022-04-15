@@ -15,8 +15,10 @@ exports.createTeams = (req, res, next) => {
       coordinates: [req.body.longitude, req.body.latitude],
       index: '2dsphere'
     },
+    isActive: req.body.isActive,
     creator: req.userData.userId
   });
+  console.log(req.body.isActive)
   teams.save().then(createdTeams => {
     res.status(201).json({
       message: 'Team added successfully',
@@ -42,6 +44,7 @@ exports.updateTeam = (req, res, next) => {
     sport: req.body.sport,
     location: req.body.location,
     contact: req.body.contact,
+    isActive: req.body.isActive,
     creator: req.userData.userId
   })
   Teams.updateOne({_id: req.params.id, creator: req.userData.userId }, team).then(result => {

@@ -58,6 +58,14 @@
         #contact="ngModel">
         <mat-error *ngIf="contact.invalid">Please enter your preferred method of contact.</mat-error>
     </mat-form-field>
+    <mat-slide-toggle
+      [checked]="true"
+      name="isActive"
+      color="primary"
+      [ngModel]="team?.isActive"
+      placeholder="Make sure you select if the team is active or not"
+      #isActive="ngModel">Is the Team active? (Make sure this is enabled if you are creating a new team)</mat-slide-toggle>
+    <br><br>
     <button
       mat-raised-button
       color="primary"

@@ -20,7 +20,6 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
   private teamId: string;
   private authStatusSub: Subscription
 
-
   constructor(public teamsService: TeamsService, public route: ActivatedRoute, private authService: AuthService) {}
 
   latitude: Number = 0
@@ -61,6 +60,7 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
             latitude: teamData.latitude,
             longitude: teamData.longitude,
             geometry: teamData.geometry,
+            isActive: teamData.isActive,
             creator: teamData.creator
           };
         });
@@ -78,7 +78,7 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     if (this.mode === 'create') {
       this.teamsService.addTeams(form.value.name, form.value.description, form.value.sport,
-        form.value.location, form.value.contact, this.latitude, this.longitude, this.geometry);
+        form.value.location, form.value.contact, this.latitude, this.longitude, this.geometry, form.value.isActive);
     } else {
       this.teamsService.updateTeams(
         this.teamId,
@@ -89,7 +89,8 @@ export class TeamsCreateComponent implements OnInit, OnDestroy {
         form.value.contact,
         this.latitude,
         this.longitude,
-        this.geometry
+        this.geometry,
+        form.value.isActive
       );
     }
     form.resetForm();

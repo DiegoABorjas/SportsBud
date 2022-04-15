@@ -39,6 +39,7 @@ export class TeamsService {
           id: teams._id,
           location: teams.location,
           contact: teams.contact,
+          isActive: teams.isActive,
           creator: teams.creator
         };
       });
@@ -55,14 +56,14 @@ export class TeamsService {
 
   getTeam(id: string) {
     return this.http.get<{ _id: string, name: string, description: string, sport: string, location: string,
-      contact: string, latitude: Number, longitude: Number, geometry: any, creator:  string }>(
+      contact: string, latitude: Number, longitude: Number, geometry: any, isActive: boolean, creator:  string }>(
       "http://localhost:3000/api/teams/" + id);
   }
 
   addTeams(name: string, description: string, sport: string, location: string, contact: string,
-    latitude: Number, longitude: Number, geometry: any) {
+    latitude: Number, longitude: Number, geometry: any, isActive: boolean) {
     const teams: Teams = { id: null, name: name, description: description, sport: sport, location: location,
-    contact: contact, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
+    contact: contact, latitude: latitude, longitude: longitude, geometry: geometry, isActive: isActive, creator: null };
     this.http
     .post<{message: string, teamsId: string }>(
       'http://localhost:3000/api/teams',
@@ -78,9 +79,9 @@ export class TeamsService {
   }
 
   updateTeams(id: string, name: string, description: string, sport: string, location: string,
-    contact: string, latitude: Number, longitude: Number, geometry: any) {
+    contact: string, latitude: Number, longitude: Number, geometry: any, isActive: boolean) {
     const team: Teams = { id: id, name: name, description: description, sport: sport, location: location,
-    contact: contact, latitude: latitude, longitude: longitude, geometry: geometry, creator: null };
+    contact: contact, latitude: latitude, longitude: longitude, geometry: geometry, isActive: isActive, creator: null };
     this.http
     .put("http://localhost:3000/api/teams/" + id, team)
     .subscribe(response => {

@@ -17,5 +17,6 @@ export interface Teams {
       index: '2dsphere'
     }
   }
+  isActive: boolean;
   creator: string;
 }
