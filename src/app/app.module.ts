@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthService } from "./authentication/auth.service";
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { LoginComponent } from './authentication/login/login.component';
@@ -32,6 +33,8 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import {MatIconModule} from '@angular/material/icon';
+
 
 
 
@@ -44,7 +47,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     LoginComponent,
     TeamsCreateComponent,
     TeamsListComponent,
-    ErrorComponent
+    ErrorComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -63,10 +67,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
     MatDialogModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'GOOGLE API KEY GOES HERE',
-    //   libraries: ['places']
-    // })
+    MatIconModule
+
   ],
   providers: [AuthService, TeamsService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

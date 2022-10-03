@@ -2,6 +2,7 @@ h1 {
   color: white;
   text-align: center;
   text-shadow: 2px 2px 5px #000000;
+  padding-top: 4em;
 }
 
 p {
@@ -10,7 +11,9 @@ p {
 }
 
 body {
-  margin-top: 4em;
+  background-image: url("../../assets/background.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 button {
@@ -21,4 +24,20 @@ button {
   margin-top: -15px;
   margin-left: -100px;
   position: absolute;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: small;
+  gap: 10px;
 }
