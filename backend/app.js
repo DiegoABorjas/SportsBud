@@ -10,14 +10,24 @@ const exp = require('constants');
 
 const app = express();
 
-// MongoDB connection
-mongoose.connect('mongodb://localhost:27017/sportsBud')
+// // MongoDB local connection
+// mongoose.connect('mongodb://localhost:27017/sportsBud')
+// .then(() => {
+//   console.log('Connected to database!')
+// })
+// .catch(() => {
+//   console.log('Connection failed!');
+// });
+
+// MongoDB cloud connection
+mongoose.connect('mongodb+srv://diegoauron:QBAxbuvHHIHuHNuG@cluster0.6errn0k.mongodb.net/sportsbud?retryWrites=true&w=majority')
 .then(() => {
   console.log('Connected to database!')
 })
 .catch(() => {
   console.log('Connection failed!');
 });
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

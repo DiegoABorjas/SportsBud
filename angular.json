@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "SportsBud": {
+    "sportsbud": {
       "projectType": "application",
       "schematics": {},
       "root": "",
